@@ -1,11 +1,16 @@
 import { useEffect } from 'react';
 import './App.scss';
-import { initiateSocketConnection } from './socketio.service';
+import { initiateSocketConnection, reportConnection } from './socketio.service';
 
 function App() {
-
 	useEffect(() => {
 		initiateSocketConnection();
+		reportConnection((err, data) => {
+			console.log(data);
+		});
+		return () => {
+			disconnectSocket();
+		};
 	}, []);
 
 	return (
